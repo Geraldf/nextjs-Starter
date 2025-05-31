@@ -1,4 +1,4 @@
-import { Calendar, Home, Inbox, Search, Settings, Workflow } from "lucide-react"
+
 
 import {
     Sidebar,
@@ -10,48 +10,16 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { items } from "@/schemas/sidebar_menu"
 
-// Menu items.
-const items = [
-    {
-        title: "Home",
-        url: "/",
-        icon: Home,
-    },
-    {
-        title: "BPMN 2.0 Editor",
-        url: "/bpmn",
-        icon: Workflow,
-    },
-    {
-        title: "Form Test",
-        url: "/form-test",
-        icon: Workflow,
 
-    },
-    {
-        title: "Chat",
-        url: "/chat",
-        icon: Calendar,
-    },
-    {
-        title: "Search",
-        url: "#",
-        icon: Search,
-    },
-    {
-        title: "Settings",
-        url: "#",
-        icon: Settings,
-    },
-]
 
 export function AppSidebar() {
     return (
         <Sidebar>
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel>Application</SidebarGroupLabel>
+                    <SidebarGroupLabel className="font-bold text-1xl">Menue</SidebarGroupLabel>
                     <SidebarGroupContent>
                         <SidebarMenu>
                             {items.map((item) => (
