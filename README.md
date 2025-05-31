@@ -1,4 +1,4 @@
-# proj1
+# Nextjs Starter
 
 A modern Next.js application built with:
 
