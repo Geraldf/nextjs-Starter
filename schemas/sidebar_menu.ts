@@ -8,7 +8,7 @@ export const items = [
     },
     {
         title: "BPMN 2.0 Editor",
-        url: "/bpmn",
+        url: "/bpmn_editor",
         icon: Workflow,
     },
     {
