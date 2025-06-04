@@ -6,11 +6,6 @@ import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { FileDown, Book, FileUp } from "lucide-react"
 
-
-
-
-
-
 // Default BPMN diagram XML
 const defaultDiagramXML = `<?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -117,37 +112,6 @@ const BpmnModeler = () => {
         }
     };
 
-    // Load diagram from disk function
-    const loadDiagramFromDisk = () => {
-        // Create a hidden file input element
-        const fileInput = document.createElement('input');
-        fileInput.type = 'file';
-        fileInput.accept = '.bpmn,.xml';
-
-        // Handle file selection
-        fileInput.onchange = (e: Event) => {
-            const target = e.target as HTMLInputElement;
-            if (!target.files || target.files.length === 0) return;
-
-            const file = target.files[0];
-            const reader = new FileReader();
-
-            reader.onload = (e) => {
-                const xml = e.target && 'result' in e.target ? (e.target as FileReader).result : null;
-                openDiagram(xml);
-            };
-
-            reader.onerror = () => {
-                setHasError(true);
-                setErrorMessage('Failed to read the file');
-            };
-
-            reader.readAsText(file);
-        };
-
-        // Trigger file selection dialog
-        fileInput.click();
-    };
 
     // Create new diagram
     const createNewDiagram = () => {
@@ -158,6 +122,50 @@ const BpmnModeler = () => {
         setIsActive(false);
 
     };
+
+    // Handle bpmn file download
+    const handleDownloadBpmn = async () => {
+        if (!modelerRef.current) return;
+        try {
+            const { xml } = await modelerRef.current.saveXML({ format: true });
+            // Create a download link
+            const blob = new Blob([xml], { type: 'application/bpmn20-xml' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'diagram.bpmn';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        } catch (err) {
+            console.error('Error saving BPMN file:', err);
+            setHasError(true);
+            setErrorMessage('Failed to save BPMN file');
+        }
+    }
+
+    // Handle SVG file download
+    const handleDownloadSvg = async () => {
+        if (!modelerRef.current) return;
+        try {
+            const { svg } = await modelerRef.current.saveSVG();
+            // Create a download link
+            const blob = new Blob([svg], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'diagram.svg';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        } catch (err) {
+            console.error('Error saving SVG file:', err);
+            setHasError(true);
+            setErrorMessage('Failed to save SVG file');
+        }
+    }
 
     // Handle file drop
     const handleFileDrop = (e: DragEvent) => {
@@ -450,20 +458,22 @@ const BpmnModeler = () => {
                                 />
                             </div>
                             <Button
-                                ref={downloadLinkRef}
+                                //ref={downloadLinkRef}
                                 size="sm"
                                 disabled={!isActive}
-                                onClick={() => downloadLinkRef.current?.click()}
+                                // onClick={() => downloadLinkRef.current?.click()}
+                                onClick={handleDownloadBpmn}
                             >
                                 {!isActive && <FileDown className="mr-2 h-4 w-4" />}
                                 Download BPMN
                             </Button>
                             <Button
-                                ref={downloadSvgLinkRef}
+
                                 size="sm"
                                 disabled={!isActive}
-                                onClick={() => downloadSvgLinkRef.current?.click()}
+                                onClick={handleDownloadSvg}
                             >
+
                                 {!isActive && <FileDown className="mr-2 h-4 w-4" />}
                                 Download SVG
                             </Button>
