@@ -5,6 +5,9 @@ import { Input } from './ui/input';
 import { Button } from './ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { FileDown, Book, FileUp } from "lucide-react"
+import '@bpmn-io/properties-panel/dist/assets/properties-panel.css';
+
+
 
 // Default BPMN diagram XML
 const defaultDiagramXML = `<?xml version="1.0" encoding="UTF-8"?>
@@ -34,14 +37,15 @@ const BpmnModeler = () => {
     type BpmnModelerType = typeof import('bpmn-js/lib/Modeler')['default'];
     // Use 'any' as fallback if type import fails in runtime
     const modelerRef = useRef<any>(null);
-    const downloadLinkRef = useRef<HTMLAnchorElement | null>(null);
-    const downloadSvgLinkRef = useRef<HTMLAnchorElement | null>(null);
+    const downloadLinkRef = useRef<HTMLButtonElement | null>(null);
+    const downloadSvgLinkRef = useRef<HTMLButtonElement | null>(null);
 
     const [hasError, setHasError] = useState(false);
     const [hasDiagram, setHasDiagram] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [isClient, setIsClient] = useState(false);
     const [isActive, setIsActive] = useState(false);
+
 
     // Debounce helper
     const debounce = (fn: { (): Promise<void>; apply?: any; }, timeout: number | undefined) => {
@@ -203,9 +207,6 @@ const BpmnModeler = () => {
         const initializeModeler = async () => {
             // Dynamic import to avoid SSR issues
             const BpmnModelerLib = (await import('bpmn-js/lib/Modeler')).default;
-
-
-
             // Import properties panel modules
             const { BpmnPropertiesPanelModule } = await import('bpmn-js-properties-panel');
             const { BpmnPropertiesProviderModule } = await import('bpmn-js-properties-panel');
@@ -218,8 +219,10 @@ const BpmnModeler = () => {
                     },
                     additionalModules: [
                         BpmnPropertiesPanelModule,
-                        BpmnPropertiesProviderModule
+                        BpmnPropertiesProviderModule,
+
                     ]
+
                 });
 
                 // Set up event listener for export
@@ -299,8 +302,8 @@ const BpmnModeler = () => {
         @import url('https://unpkg.com/bpmn-js@18.6.2/dist/assets/diagram-js.css');
         @import url('https://unpkg.com/bpmn-js@18.6.2/dist/assets/bpmn-js.css');
         @import url('https://unpkg.com/bpmn-js@18.6.2/dist/assets/bpmn-font/css/bpmn-embedded.css');
-        @import url('https://unpkg.com/bpmn-js-properties-panel@5.0.0/dist/assets/properties-panel.css');
-        
+        /* @import url('https://unpkg.com/bpmn-js-properties-panel@5.0.0/dist/assets/properties-panel.css'); */
+        @import url('node_modules/@bpmn-io/properties-panel/assets/properties-panel.css');
         .modeler-container {
           display: flex;
           height: 600px;
@@ -449,7 +452,7 @@ const BpmnModeler = () => {
                                 Create New Diagram
                             </Button>
 
-                            <div size="sm">
+                            <div >
                                 <Input
                                     type="file"
                                     accept=".bpmn"
@@ -458,7 +461,7 @@ const BpmnModeler = () => {
                                 />
                             </div>
                             <Button
-                                //ref={downloadLinkRef}
+                                ref={downloadLinkRef}
                                 size="sm"
                                 disabled={!isActive}
                                 // onClick={() => downloadLinkRef.current?.click()}
@@ -468,12 +471,11 @@ const BpmnModeler = () => {
                                 Download BPMN
                             </Button>
                             <Button
-
+                                ref={downloadSvgLinkRef}
                                 size="sm"
                                 disabled={!isActive}
                                 onClick={handleDownloadSvg}
                             >
-
                                 {!isActive && <FileDown className="mr-2 h-4 w-4" />}
                                 Download SVG
                             </Button>
