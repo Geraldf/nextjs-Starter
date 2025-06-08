@@ -9,7 +9,7 @@ import { Input } from "../ui/input";
 import { Switch } from "../ui/switch";
 
 // components/property-panel/FormProperties.tsx
-const FormProperties: React.FC<GeneralPropertiesProps> = ({
+export const FormProperties: React.FC<GeneralPropertiesProps> = ({
     properties,
     onPropertyChange
 }) => {

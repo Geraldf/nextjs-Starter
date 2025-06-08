@@ -1,3 +1,4 @@
+"use client";
 // components/property-panel/PropertyPanel.tsx
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -9,6 +10,9 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { BpmnElement, BpmnModeling } from '../../types/bpmn';
+import { FormProperties } from './FormProperties';
+import { ListenerProperties } from './ListenerProperties';
+import { GeneralProperties } from './GeneralProperties';
 
 interface PropertyPanelProps {
     element: BpmnElement | null;

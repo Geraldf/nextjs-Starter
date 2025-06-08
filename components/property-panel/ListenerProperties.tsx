@@ -8,7 +8,7 @@ import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 
 // components/property-panel/ListenerProperties.tsx
-const ListenerProperties: React.FC<GeneralPropertiesProps> = ({
+export const ListenerProperties: React.FC<GeneralPropertiesProps> = ({
     properties,
     onPropertyChange
 }) => {

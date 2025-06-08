@@ -1,3 +1,4 @@
+"useClient"
 // hooks/useBpmnPropertyPanel.ts
 import { useState, useEffect, useCallback } from 'react';
 import { BpmnElement, BpmnModeling, BpmnEventBus } from '../types/bpmn';
@@ -26,6 +27,7 @@ export const useBpmnPropertyPanel = (
     }, [selectedElement]);
 
     useEffect(() => {
+        if (!eventBus) return;
         eventBus.on('selection.changed', handleSelectionChanged);
         eventBus.on('element.changed', handleElementChanged);
 
