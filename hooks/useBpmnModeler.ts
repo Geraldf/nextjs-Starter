@@ -31,12 +31,6 @@ export const useBpmnModeler = () => {
     const [showSaveAlert, setShowSaveAlert] = useState<boolean>(false);
 
 
-    const { openFilePicker, filesContent, loading } = useFilePicker({
-        accept: '.bpmn, .xml',
-        multiple: false,
-        readAs: 'Text',
-    });
-
     const setRef = (ref: BpmnModelerLib | null) => {
         modelerRef.current = ref;
         setModeler(ref);
@@ -100,7 +94,36 @@ export const useBpmnModeler = () => {
         }
     };
 
+    async function loadDiagramFromDisk() {
+        if (!modelerRef.current) {
+            console.error('Modeler is not initialized');
+            return;
+        }
 
+        try {
+            const fileInput = document.createElement('input');
+            fileInput.type = 'file';
+            fileInput.accept = '.bpmn,.xml';
+            fileInput.onchange = async (event) => {
+                const file = (event.target as HTMLInputElement)?.files?.[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = async (e) => {
+                        const xml = e.target?.result;
+                        if (typeof xml === 'string') {
+                            await openDiagram(xml);
+                        } else {
+                            console.error('Invalid file content. Expected a string.');
+                        }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            fileInput.click();
+        } catch (err) {
+            console.error('Failed to load diagram from disk:', err);
+        }
+    }
 
     // Default BPMN diagram XML
     const defaultDiagramXML = `<?xml version="1.0" encoding="UTF-8"?>
@@ -144,6 +167,7 @@ export const useBpmnModeler = () => {
         openDiagram,
         createNewDiagram,
         setRef,
-        saveDiagramToDisk
+        saveDiagramToDisk,
+        loadDiagramFromDisk
     };
 };

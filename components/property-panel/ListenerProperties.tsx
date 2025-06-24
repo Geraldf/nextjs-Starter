@@ -6,6 +6,7 @@ import { Button } from "../ui/button";
 import { Card } from "../ui/card";
 import { Input } from "../ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
+import { GeneralPropertiesProps } from "./GeneralProperties";
 
 // components/property-panel/ListenerProperties.tsx
 export const ListenerProperties: React.FC<GeneralPropertiesProps> = ({

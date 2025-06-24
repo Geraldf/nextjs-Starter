@@ -1,6 +1,5 @@
 "use client"
-// Approach 1: Replace the default properties panel entirely
-// BpmnModelerWithCustomPanel.tsx
+
 import React, { useRef, useEffect, useState, use } from 'react';
 import BpmnModelerLib from 'bpmn-js/lib/Modeler';
 import { useBpmnPropertyPanel } from '@/hooks/useBpmnPropertyPanel';
@@ -10,6 +9,7 @@ import { Button } from './ui/button';
 import { useBpmnModeler } from '@/hooks/useBpmnModeler';
 import "bpmn-js/dist/assets/bpmn-font/css/bpmn.css";
 import { FilePlus2 } from 'lucide-react';
+import TokenSimulationModule from 'bpmn-js-token-simulation';
 
 interface BpmnModelerWithCustomPanelProps {
     onReady?: (modeler: BpmnModelerLib) => void;
@@ -35,7 +35,7 @@ export const BpmnModelerWithCustomPanel: React.FC<BpmnModelerWithCustomPanelProp
     );
 
     // modeling hooks
-    const { createNewDiagram, setRef, saveDiagramToDisk } = useBpmnModeler();
+    const { createNewDiagram, setRef, saveDiagramToDisk, loadDiagramFromDisk } = useBpmnModeler();
 
     // Default BPMN diagram XML
     const defaultDiagramXML = `<?xml version="1.0" encoding="UTF-8"?>
@@ -88,6 +88,9 @@ export const BpmnModelerWithCustomPanel: React.FC<BpmnModelerWithCustomPanelProp
             modelerRef.current = new BpmnModelerLib({
                 container: canvasRef.current,
                 // Remove propertiesPanel configuration
+                additionalModules: [
+                    // TokenSimulationModule, // Add token simulation module
+                ],
 
             });
             openDiagram(defaultDiagramXML);
@@ -103,6 +106,7 @@ export const BpmnModelerWithCustomPanel: React.FC<BpmnModelerWithCustomPanelProp
             }
         };
     }, [onReady]);
+
 
     return (
         <>
@@ -136,6 +140,19 @@ export const BpmnModelerWithCustomPanel: React.FC<BpmnModelerWithCustomPanelProp
                         }
                     >
                         <FilePlus2 />Save Diagram
+                    </Button>
+                    <Button
+                        className="m-2 bg-green-300 hover:bg-green-400 text-black"
+                        onClick={() => {
+                            if (modeler) {
+                                loadDiagramFromDisk();
+                            } else {
+                                console.error('Modeler is not initialized');
+                            }
+                        }
+                        }
+                    >
+                        <FilePlus2 />Load Diagram
                     </Button>
                 </div>
                 {/* Custom Property Panel */}

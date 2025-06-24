@@ -18,8 +18,8 @@ export const items = [
 
     },
     {
-        title: "Chat",
-        url: "/chat",
+        title: "SVG Test",
+        url: "/svg_test",
         icon: Calendar,
     },
     {

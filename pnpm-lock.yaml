@@ -41,12 +41,18 @@ importers:
       '@radix-ui/react-tooltip':
         specifier: ^1.2.7
         version: 1.2.7(@types/react-dom@19.1.5(@types/react@19.1.6))(@types/react@19.1.6)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      bpmn-engine:
+        specifier: ^25.0.0
+        version: 25.0.0(smqp@9.0.6)
       bpmn-js:
         specifier: ^18.6.2
         version: 18.6.2
       bpmn-js-properties-panel:
         specifier: ^5.37.0
         version: 5.37.0(@bpmn-io/properties-panel@3.27.3)(bpmn-js@18.6.2)(camunda-bpmn-js-behaviors@1.10.0(bpmn-js@18.6.2)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.9.0))(diagram-js@15.3.0)
+      bpmn-js-token-simulation:
+        specifier: ^0.38.1
+        version: 0.38.1
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -104,6 +110,10 @@ importers:
         version: 5.8.3
 
 packages:
+
+  '@0dep/piso@2.5.0':
+    resolution: {integrity: sha512-3bkF6fcgwo+VumhBYUXpREicWewFaLELDEBP79pTCFCcBDC3LvyxK3ZGu+yuZhoGNbfhRIprOK9Uhapdax7AnQ==}
+    engines: {node: '>=14'}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -1200,6 +1210,15 @@ packages:
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
 
+  bpmn-elements@17.1.0:
+    resolution: {integrity: sha512-5NPw0Mrcy94JxmqkiASJRWz7qkq02aPoegt1bnKqHuBnJdH3jv6DjnhM6LewyWR0NcJ5BRKMP5PT59zrmOWCcQ==}
+
+  bpmn-engine@25.0.0:
+    resolution: {integrity: sha512-Hagny4qQ+ZxDzUV+8yfOLj1AnaTWb8B3HQitdmd06yF5AqngjdWcxcAUjiZ65xX8aeNjyR69PsAnDDWzcxx6XA==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      smqp: '>=9'
+
   bpmn-js-properties-panel@5.37.0:
     resolution: {integrity: sha512-vWw1nTlNX6+Fb5XvTIP8JP/dHsHUt6P0VrTs84f+qUjTkfIhPhwJbg6ziQM+pE2Ezw+r1Y85DpJ/N31wXlPjAA==}
     peerDependencies:
@@ -1207,6 +1226,10 @@ packages:
       bpmn-js: '>= 11.5'
       camunda-bpmn-js-behaviors: '>= 0.4'
       diagram-js: '>= 11.9'
+
+  bpmn-js-token-simulation@0.38.1:
+    resolution: {integrity: sha512-PaIC2yYQr6kDEnnpOCV8d1HxVNx7dMgDLo35ha+XSl/lsU48vGq+bVU3EIqfjC4aUs8CPVlEL1ZSh5AmzruAIg==}
+    engines: {node: '>= 16'}
 
   bpmn-js@18.6.2:
     resolution: {integrity: sha512-3C+ktypiJKTco5U6GmZ3FTqcy2o7KwWY0W1KlNon39tW3RInPqJ3W48impd8cFkZ/9QmvITN99NoZjSBu4JFgw==}
@@ -2015,6 +2038,11 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
+  moddle-context-serializer@4.4.0:
+    resolution: {integrity: sha512-N+/RDuaCn9QqfeFy3PngwKqT7NxHziGMYJo3W3fYW45amm62jxRV9jUxVKFRb2FY4Jhhi7C9S4sKqa6zXT+p6w==}
+    peerDependencies:
+      bpmn-moddle: '>=6'
+
   moddle-xml@11.0.0:
     resolution: {integrity: sha512-L3Sseepfcq9Uy0iIfqEDTXSoYLva1Y/JGbN/4AMOeQ6cqbu8Ma/SDJIdOFm7smsAa64j2z3SwCGG3FIilQVnUg==}
     engines: {node: '>= 18'}
@@ -2171,6 +2199,9 @@ packages:
   queue-microtask@1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
+  randomcolor@0.6.2:
+    resolution: {integrity: sha512-Mn6TbyYpFgwFuQ8KJKqf3bqqY9O1y37/0jgSK/61PUxV4QfIMv0+K2ioq8DfOjkBslcjwSzRfIDEXfzA9aCx7A==}
+
   react-dom@19.1.0:
     resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
     peerDependencies:
@@ -2314,6 +2345,9 @@ packages:
 
   simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
+
+  smqp@9.0.6:
+    resolution: {integrity: sha512-NMtu5d8d86Xz/t17Ut79phTqrHB8SuQwHtZA2tqWN5HxrxtyfSlk3aMIWTqYXaFOjqV2fKQBJPPsMHXcrYZc/w==}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -2539,6 +2573,8 @@ packages:
     resolution: {integrity: sha512-Y9ncIdP4m1PKbIBDqSghwZud2eiiBpfygE0bTApGqtnGlJMA/6Xanl/J7ujxG5zREoAliwf6rJyJFk3FZ75AYg==}
 
 snapshots:
+
+  '@0dep/piso@2.5.0': {}
 
   '@alloc/quick-lru@5.2.0': {}
 
@@ -3618,6 +3654,21 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
+  bpmn-elements@17.1.0:
+    dependencies:
+      '@0dep/piso': 2.5.0
+      smqp: 9.0.6
+
+  bpmn-engine@25.0.0(smqp@9.0.6):
+    dependencies:
+      bpmn-elements: 17.1.0
+      bpmn-moddle: 9.0.1
+      debug: 4.4.1
+      moddle-context-serializer: 4.4.0(bpmn-moddle@9.0.1)
+      smqp: 9.0.6
+    transitivePeerDependencies:
+      - supports-color
+
   bpmn-js-properties-panel@5.37.0(@bpmn-io/properties-panel@3.27.3)(bpmn-js@18.6.2)(camunda-bpmn-js-behaviors@1.10.0(bpmn-js@18.6.2)(camunda-bpmn-moddle@7.0.1)(zeebe-bpmn-moddle@1.9.0))(diagram-js@15.3.0):
     dependencies:
       '@bpmn-io/extract-process-variables': 1.0.1
@@ -3629,6 +3680,13 @@ snapshots:
       ids: 1.0.5
       min-dash: 4.2.3
       min-dom: 4.2.1
+
+  bpmn-js-token-simulation@0.38.1:
+    dependencies:
+      inherits-browser: 0.1.0
+      min-dash: 4.2.3
+      min-dom: 4.2.1
+      randomcolor: 0.6.2
 
   bpmn-js@18.6.2:
     dependencies:
@@ -4611,6 +4669,10 @@ snapshots:
 
   mkdirp@3.0.1: {}
 
+  moddle-context-serializer@4.4.0(bpmn-moddle@9.0.1):
+    dependencies:
+      bpmn-moddle: 9.0.1
+
   moddle-xml@11.0.0(moddle@7.2.0):
     dependencies:
       min-dash: 4.2.3
@@ -4766,6 +4828,8 @@ snapshots:
   punycode@2.3.1: {}
 
   queue-microtask@1.2.3: {}
+
+  randomcolor@0.6.2: {}
 
   react-dom@19.1.0(react@19.1.0):
     dependencies:
@@ -4961,6 +5025,8 @@ snapshots:
     dependencies:
       is-arrayish: 0.3.2
     optional: true
+
+  smqp@9.0.6: {}
 
   source-map-js@1.2.1: {}
 

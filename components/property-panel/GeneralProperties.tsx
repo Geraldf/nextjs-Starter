@@ -4,7 +4,7 @@ import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 
 // components/property-panel/GeneralProperties.tsx
-interface GeneralPropertiesProps {
+export interface GeneralPropertiesProps {
     properties: Record<string, any>;
     onPropertyChange: (key: string, value: any) => void;
 }

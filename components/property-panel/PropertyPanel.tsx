@@ -3,12 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { BpmnElement, BpmnModeling } from '../../types/bpmn';
 import { FormProperties } from './FormProperties';
 import { ListenerProperties } from './ListenerProperties';
@@ -54,6 +48,23 @@ export const PropertyPanel: React.FC<PropertyPanelProps> = ({
             onUpdateProperties(updatedProperties);
         }
     };
+    switch (element?.type) {
+        case 'bpmn:ServiceTask':
+            properties.implementation = properties.implementation || 'delegateExpression';
+            properties.showForm = false; // Default to false for other tasks
+            break;
+        case 'bpmn:UserTask':
+
+            properties.formKey = properties.formKey || '';
+            properties.assignee = properties.assignee || '';
+            properties.candidateUsers = properties.candidateUsers || [];
+            properties.candidateGroups = properties.candidateGroups || [];
+            properties.showForm = true; // Default to true for UserTask
+            break;
+        default:
+            properties.showForm = false; // Default to false for other tasks
+
+    }
 
     if (!element) {
         return (
@@ -76,7 +87,7 @@ export const PropertyPanel: React.FC<PropertyPanelProps> = ({
                 <Tabs defaultValue="general" className="w-full">
                     <TabsList className="grid w-full grid-cols-3">
                         <TabsTrigger value="general">General</TabsTrigger>
-                        <TabsTrigger value="forms">Forms</TabsTrigger>
+                        {properties.showForm && <TabsTrigger value="forms">Forms</TabsTrigger>}
                         <TabsTrigger value="listeners">Listeners</TabsTrigger>
                     </TabsList>
 
